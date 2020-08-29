@@ -27,7 +27,7 @@ eureka:
     # 是否从EurekaServer抓取已有的注册信息
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      defaultZone: http://eureka7001.com:7001/eureka
   instance:
     instance-id: payment8002
     # 主机名显示IP信息，鼠标移动上去显示

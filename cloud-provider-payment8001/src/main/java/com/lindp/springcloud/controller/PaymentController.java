@@ -22,7 +22,6 @@ import java.util.List;
  * @since 2020-05-30
  */
 @RestController
-@RequestMapping("/payment")
 @Slf4j
 public class PaymentController {
     @Resource
@@ -33,7 +32,7 @@ public class PaymentController {
     @Value("${server.port}")
     private String serverPort;
 
-    @PostMapping("/create")
+    @PostMapping("/payment/create")
     public CommonResult<Object> create(@RequestBody Payment entity) {
         boolean result = paymentService.save(entity);
         if (result) {
@@ -42,7 +41,7 @@ public class PaymentController {
         return new CommonResult<>(444, "插入数据库失败，serverPort：" + serverPort, null);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/payment/get/{id}")
     public CommonResult<Payment> getPaymentById(@PathVariable Long id) {
         Payment payment = paymentService.getById(id);
         if (payment != null) {
@@ -52,7 +51,12 @@ public class PaymentController {
         }
     }
 
-    @GetMapping("/discovery")
+    @GetMapping("/payment/lb")
+    public String getPaymentLB() {
+        return serverPort;
+    }
+
+    @GetMapping("/payment/discovery")
     public Object discovery() {
         List<String> services = discoveryClient.getServices();
         for (String service : services) {

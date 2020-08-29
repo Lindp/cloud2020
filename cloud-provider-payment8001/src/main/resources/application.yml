@@ -27,7 +27,7 @@ eureka:
     # 是否从EurekaServer抓取已有的注册信息
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      defaultZone: http://eureka7001.com:7001/eureka
   instance:
     # 设置eureka主机名规范，方便查找到主机信息
     instance-id: payment8001
