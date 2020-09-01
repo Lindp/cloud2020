@@ -1,0 +1,33 @@
+server:
+  port: 8802
+spring:
+  application:
+    name: cloud-stream-provider
+  cloud:
+    stream:
+      binders: # 配置要绑定的rabbitmq服务信息
+        lindpRabbit:
+          type: rabbit # binder的消息中间件类型
+          environment: # 消息中间件环境变量，应该是设置消息中间件连接这部分
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+      bindings:
+        input:
+          destination: studyExchange # 定义exchange名称
+          content-type: application/json
+          binder: lindpRabbit # 设置要绑定的消息服务具体设置
+          group: lindpA # 设置消费者分组
+
+eureka: # eureka 配置
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔
+    instance-id: send-8802.com
+    prefer-ip-address: true # 访问的路径变为IP地址
